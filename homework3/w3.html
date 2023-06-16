@@ -1,11 +1,10 @@
-<!DOCTYPE html>
 <html>
 <head>
   <title>註冊表單</title>
   <style>
     body {
       text-align: center;
-      background-color: #f2f2f2;
+      background-color: #e6e6fa; /* 淡紫色背景 */
       font-family: Arial, sans-serif;
     }
 
@@ -54,12 +53,47 @@
     .form-button:hover {
       background-color: #45a049;
     }
+
+    .captcha-container {
+      margin-top: 15px;
+    }
+
+    .captcha-image {
+      width: 120px;
+      height: 40px;
+      border: 1px solid #cccccc;
+      border-radius: 3px;
+    }
   </style>
+  <script>
+    function generateCaptcha() {
+      var captchaContainer = document.getElementById("captcha-container");
+      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var captcha = "";
+
+      for (var i = 0; i < 5; i++) {
+        var randomIndex = Math.floor(Math.random() * characters.length);
+        captcha += characters[randomIndex];
+      }
+
+      captchaContainer.innerHTML = captcha;
+    }
+
+    function validateForm() {
+      var inputCaptcha = document.getElementById("input-captcha").value;
+      var captchaContainer = document.getElementById("captcha-container").innerHTML;
+
+      if (inputCaptcha !== captchaContainer) {
+        alert("驗證碼錯誤！");
+        return false;
+      }
+    }
+  </script>
 </head>
 <body>
   <h1>註冊表單</h1>
   <div class="form-container">
-    <form>
+    <form onsubmit="return validateForm()">
       <div class="form-group">
         <label for="name" class="form-label">姓名：</label>
         <input type="text" id="name" class="form-input" required>
@@ -72,9 +106,16 @@
         <label for="password" class="form-label">密碼：</label>
         <input type="password" id="password" class="form-input" required>
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for="confirm-password" class="form-label">確認密碼：</label>
         <input type="password" id="confirm-password" class="form-input" required>
+      </div>
+      <div class="captcha-container">
+        <label class="form-label">驗證碼：</label>
+        <span id="captcha-container" class="captcha-image"></span>
+        <button type="button" onclick="generateCaptcha()">重新生成</button>
+        <br>
+        <input type="text" id="input-captcha" class="form-input" required>
       </div>
       <button type="submit" class="form-button">註冊</button>
     </form>
