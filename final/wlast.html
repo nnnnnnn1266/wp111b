@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>猜動物遊戲</title>
+  <script>
+    function guessAnimal() {
+      var animals = ['狗', '貓', '鳥', '獅子', '大象', '兔子', '熊'];
+      var secretAnimal = animals[Math.floor(Math.random() * animals.length)];  // 從動物列表中隨機選擇一個動物
+      var attempts = 0;
+
+      alert("我選了一個動物的名字，你來猜猜是什麼動物吧！");
+
+      while (true) {
+        var guess = prompt("你猜是什麼動物？");
+        attempts++;
+
+        if (guess === secretAnimal) {
+          alert("恭喜你！你猜對了！答案就是 " + secretAnimal + "！");
+          alert("你總共猜了 " + attempts + " 次。");
+          break;
+        } else {
+          alert("猜錯了，再猜一次！");
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>猜動物遊戲</h1>
+  <button onclick="guessAnimal()">開始遊戲</button>
+</body>
+</html>
