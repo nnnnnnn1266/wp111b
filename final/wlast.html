@@ -1,31 +1,43 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <title>猜動物遊戲</title>
+  <title>猜拳遊戲</title>
   <script>
-    function guessAnimal() {
-      var animals = ['狗', '貓', '鳥', '獅子', '大象', '兔子', '熊'];
-      var secretAnimal = animals[Math.floor(Math.random() * animals.length)];  // 從動物列表中隨機選擇一個動物
-      var attempts = 0;
+    function playGame(playerChoice) {
+      var choices = ['✊', '✋', '✌️'];
+      var computerChoice = choices[Math.floor(Math.random() * choices.length)];
 
-      alert("我選了一個動物的名字，你來猜猜是什麼動物吧！");
+      var resultText = document.getElementById("result-text");
+      var playerChoiceText = document.getElementById("player-choice");
+      var computerChoiceText = document.getElementById("computer-choice");
 
-      while (true) {
-        var guess = prompt("你猜是什麼動物？");
-        attempts++;
+      playerChoiceText.innerHTML = playerChoice;
+      computerChoiceText.innerHTML = computerChoice;
 
-        if (guess === secretAnimal) {
-          alert("恭喜你！你猜對了！答案就是 " + secretAnimal + "！");
-          alert("你總共猜了 " + attempts + " 次。");
-          break;
-        } else {
-          alert("猜錯了，再猜一次！");
-        }
+      if (playerChoice === computerChoice) {
+        resultText.innerHTML = "平手！";
+      } else if (
+        (playerChoice === "✊" && computerChoice === "✌️") ||
+        (playerChoice === "✋" && computerChoice === "✊") ||
+        (playerChoice === "✌️" && computerChoice === "✋")
+      ) {
+        resultText.innerHTML = "你贏了！";
+      } else {
+        resultText.innerHTML = "你輸了！";
       }
     }
   </script>
 </head>
 <body>
-  <h1>猜動物遊戲</h1>
-  <button onclick="guessAnimal()">開始遊戲</button>
+  <h1>猜拳遊戲</h1>
+  <p>
+    <button onclick="playGame('✊')">✊</button>
+    <button onclick="playGame('✋')">✋</button>
+    <button onclick="playGame('✌️')">✌️</button>
+  </p>
+  <h2>結果：</h2>
+  <p id="result-text"></p>
+  <h3>你的選擇： <span id="player-choice"></span></h3>
+  <h3>電腦的選擇： <span id="computer-choice"></span></h3>
 </body>
 </html>
